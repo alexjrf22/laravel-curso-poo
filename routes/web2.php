@@ -35,5 +35,3 @@ Route::get('/', function () {
     dd($data->cep, $data->logradouro); // resultado é o msm só muda q pode trabalhar de ambas as formas.
 });
    
-   
-   
