@@ -1,39 +1,55 @@
-<?php
+<?php declare(strict_types=1);
 
-use app\DTO\Contracts\PersonDTOInterface;
-use App\DTO\PersonDTO;
-use App\Entities\NaturalPerson;
-use App\Http\Controllers\Admin\{ReplySupportController, SupportController};
-//use App\Http\Controllers\ProfileController;
-//use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
-use App\Entities\Person;
-use App\Entities\Traits\SuperPersonTrait;
-use App\Services\ViaCepService;
-use Illuminate\Support\Fluent;
-use PhpParser\Node\Expr\Cast\Object_;  
 
+class invoice
+{
+   protected array $properties = [];
+    
+    public function __get(string $key): mixed
+    {
+        if(array_key_exists($key, $this->properties)){
+            return $this->properties[$key];
+        }
+        return null;    
+    }
 
-//Route::get('/contato', [SiteController::class, 'contact']);
+    public function __set(string $key, mixed $value): void
+    {
+        $this->properties[$key] = $value;
+    }
 
+}
 
 Route::get('/', function () {
-    
-    //Usando metodo estatico, poupa codigo
-    
-    //dd(ViaCepService::handle(zipcode:'72405440'));
 
-    /* usando metodo não estatico
-    $viaCep = new ViaCepService(zipcode: '72405440');
-    dd($viaCep->handle());   
-    */
+   $invoice = new invoice;
+   $invoice->id = 2;
+   $invoice->date = date(format: 'd/m/y');
+   dd($invoice);
 
-    //classe fluente laravel 
-
-    $data = new Fluent(ViaCepService::handle(zipcode:'72405440'));
-    // com fluent vc pode trabalhar formato array assim -> dd ($data['logradouro'], $data['cep']); ou
-    dd($data->cep, $data->logradouro); // resultado é o msm só muda q pode trabalhar de ambas as formas.
 });
    
-   
+ 
+
+/*
+
+
+class Person
+{
+    public function __get(string $name): mixed
+    {
+        if(property_exists($this, $name)){
+            return $this->$name;
+        }
+        return null;   
+    }
+
+    public function __set(string $name, mixed $value): void
+    {
+        $this->name = $value;
+    }
+}
+
+*/
    
